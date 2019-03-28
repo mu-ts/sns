@@ -17,7 +17,7 @@ export interface EndpointCondition {
  *
  * @param route for this function.
  */
-export function sns(path: string, action: HTTPAction | string, condition?: EndpointCondition, priority?: number) {
+export function sns(path: string, condition?: EndpointCondition, priority?: number) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
 
     const targetMethod = descriptor.value;
@@ -38,9 +38,7 @@ export function sns(path: string, action: HTTPAction | string, condition?: Endpo
           });
     }
 
-    const routeAction = typeof action === 'string' ? action.toUpperCase() : action;
-
-    SNSRouter.register(path, routeAction.toUpperCase(), descriptor.value, condition, priority)
+    SNSRouter.register(path, HTTPAction.POST, descriptor.value, condition, priority)
 
     return descriptor;
   };
