@@ -1,0 +1,25 @@
+{
+  "name": "@mu-ts/sns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mu-ts/sns.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mu-ts/sns/issues"
+  },
+  "homepage": "https://github.com/mu-ts/sns#readme",
+  "devDependencies": {
+    "@types/node": "^11.12.0",
+    "aws-sdk": "^2.430.0",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
+  }
+}
