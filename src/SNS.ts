@@ -20,7 +20,7 @@ export function jsonSerializer(payload: object): string {
 }
 
 /**
- * Wraper around AWS SNS to normalize the 90% cases into a few common
+ * Wrapper around AWS SNS to normalize the 90% cases into a few common
  * calls.
  */
 export class SNS {
