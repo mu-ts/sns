@@ -1,12 +1,26 @@
 {
   "name": "@mu-ts/sns",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "tslint 'src/**/*.ts'",
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "prepare": "npm run build",
+    "pretest": "npm run build",
+    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "xtest": "nyc mocha test",
+    "codecov": "mkdir .nyc_output && nyc report --reporter=json && codecov -f coverage/*.json"
   },
+  "files": [
+    "dist/*",
+    "README.md",
+    "LICENSE",
+    "CODE_OF_CONDUCT.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mu-ts/sns.git"
@@ -18,14 +32,22 @@
   },
   "homepage": "https://github.com/mu-ts/sns#readme",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
     "@types/aws-lambda": "^8.10.23",
-    "@types/node": "^11.12.0",
-    "aws-sdk": "^2.430.0",
-    "tslint": "^5.14.0",
-    "typescript": "^3.3.4000"
+    "@types/node": "^11.13.0",
+    "@types/mocha": "^5.2.6",
+    "chai": "^4.2.0",
+    "codecov": "^3.2.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
+    "source-map-support": "^0.5.11",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.15.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.4.1",
+    "aws-sdk": "^2.430.0"
   },
   "dependencies": {
-    "npm": "^6.9.0",
     "reflect-metadata": "^0.1.13"
   }
 }
