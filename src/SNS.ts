@@ -89,8 +89,8 @@ export class SNS {
     if (!SNS.globalSNS) SNS.globalSNS = new AWS.SNS({ apiVersion: '2006-03-01' });
     const parameters: PublishInput = SNS.buildParameters(SNS.globalSerializer, topicARN, payload, subject, tags);
     const response: PublishResponse = await SNS.send(SNS.globalSNS, parameters);
-    const recieipt: MessageReceipt = new MessageReceipt('' + response.MessageId);
-    return recieipt;
+    const receipt: MessageReceipt = new MessageReceipt('' + response.MessageId);
+    return receipt;
   }
 
   /**
@@ -107,8 +107,8 @@ export class SNS {
   ): Promise<MessageReceipt> {
     const parameters: PublishInput = SNS.buildParameters(this.serializer, this.topicARN, payload, subject, tags);
     const response: PublishResponse = await SNS.send(this.sns, parameters);
-    const recieipt: MessageReceipt = new MessageReceipt('' + response.MessageId);
-    return recieipt;
+    const receipt: MessageReceipt = new MessageReceipt('' + response.MessageId);
+    return receipt;
   }
 
   /**
