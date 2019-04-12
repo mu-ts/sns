@@ -37,7 +37,7 @@ export class SNS {
    */
   constructor(topicARN: string, region?: string, serializer?: SNSBodySerializer) {
     this.topicARN = topicARN;
-    this.sns = new AWS.SNS({ apiVersion: '2006-03-01', region });
+    this.sns = new AWS.SNS({ apiVersion: '2010-03-31', region });
     this.serializer = serializer || jsonSerializer;
   }
 
@@ -86,7 +86,7 @@ export class SNS {
     subject?: string,
     tags?: Map<string, string>
   ): Promise<MessageReceipt> {
-    if (!SNS.globalSNS) SNS.globalSNS = new AWS.SNS({ apiVersion: '2006-03-01' });
+    if (!SNS.globalSNS) SNS.globalSNS = new AWS.SNS({ apiVersion: '2010-03-31' });
     const parameters: PublishInput = SNS.buildParameters(SNS.globalSerializer, topicARN, payload, subject, tags);
     const response: PublishResponse = await SNS.send(SNS.globalSNS, parameters);
     const receipt: MessageReceipt = new MessageReceipt('' + response.MessageId);
