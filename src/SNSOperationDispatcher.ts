@@ -24,7 +24,7 @@ class SNSOperationDispatcher {
         } else if (!service) {
             console.error('Misconfigured service name for this project.');
         } else {
-            return SNS.publish(topicARN, JSON.stringify(Object.assign(payload, {operation: operation})), `${service} ${operation}`);
+            return SNS.publish(topicARN, JSON.stringify(Object.assign({}, payload, {operation: operation})), `${service} ${operation}`);
         }
     }
 
