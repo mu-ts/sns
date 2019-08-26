@@ -113,7 +113,7 @@ export class SNS {
 
   /**
    *
-   * @param serializer To serialize the paylaod with.
+   * @param serializer To serialize the payload with.
    * @param topicARN to send the message to.
    * @param payload of the message to send.
    * @param subject of the message.
