@@ -124,24 +124,24 @@ export class SNS {
     topicARN: string,
     payload: string | object,
     subject?: string,
-    tags?: Map<string, string>
+    tags?: Map<string, string | string[]>
   ): PublishInput {
     const body = typeof payload === 'string' ? payload : serializer(payload);
-    const parametrs: PublishInput = {
+    const parameters: PublishInput = {
       TopicArn: topicARN,
       Message: body,
       Subject: subject,
       MessageAttributes: !tags
         ? undefined
-        : Object.keys(tags).reduce((current: MessageAttributeMap, key: string) => {
+        : Array.from(tags.keys()).reduce((current: MessageAttributeMap, key: string) => {
             current[key] = {
               DataType: Array.isArray(tags.get(key)) ? 'String.Array' : 'String',
-              StringValue: Array.isArray(tags.get(key)) ? JSON.stringify(tags.get(key)) : tags.get(key),
+              StringValue: Array.isArray(tags.get(key)) ? JSON.stringify(tags.get(key)) : <string> tags.get(key),
             };
             return current;
           }, {}),
     };
-    return parametrs;
+    return parameters;
   }
 
   private static async send(sns: AWS.SNS, parameters: PublishInput): Promise<PublishResponse> {
