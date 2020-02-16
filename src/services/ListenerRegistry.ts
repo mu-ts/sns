@@ -27,14 +27,14 @@ export class ListenerRegistry {
    * @param attributes to restrict execution to.
    */
   public static register(
-    listener: Function,
+    behavior: Function,
     arnPrefix?: string,
     arnPostfix?: string,
     ...attributes: MessageAttribute[]
   ): void {
     this.instance.logger.debug('register()', { arnPrefix, arnPostfix, attributes });
     this.instance.listeners.push({
-      listener,
+      behavior,
       arnPostfix,
       arnPrefix,
       attributes,
