@@ -1,22 +1,19 @@
 {
   "name": "@mu-ts/sns",
-  "version": "1.0.9",
-  "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "2.0.0",
+  "description": "Aids in routing messages from different SNS topics through the same endpoint, easier, cleaner and clearer.",
+  "main": "./lib/index",
+  "types": "./lib/index",
   "scripts": {
-    "lint": "tslint 'src/**/*.ts'",
-    "start": "npm run build:live",
     "build": "tsc -p .",
-    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "prepare": "npm run build",
-    "pretest": "npm run build",
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "xtest": "nyc mocha test",
-    "codecov": "mkdir .nyc_output && nyc report --reporter=json && codecov -f coverage/*.json"
+    "test": "nyc mocha -r ts-node/register spec/**/*.spec.ts",
+    "coverage": "nyc report --reporter text-summary",
+    "coverage-export": "nyc report --reporter=lcov > coverage.lcov",
+    "lint": "tslint -p .",
+    "clean": "rm -rf coverage lib .nyc_output"
   },
   "files": [
-    "dist/*",
+    "lib/*",
     "README.md",
     "LICENSE",
     "CODE_OF_CONDUCT.md"
@@ -25,13 +22,14 @@
     "type": "git",
     "url": "git+https://github.com/mu-ts/sns.git"
   },
-  "author": "",
+  "author": "matt.filion@gmail.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mu-ts/sns/issues"
   },
   "homepage": "https://github.com/mu-ts/sns#readme",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.23",
     "@types/chai": "^4.1.7",
     "@types/chai-as-promised": "^7.1.0",
     "@types/mocha": "^5.2.6",
@@ -45,13 +43,11 @@
     "nyc": "^13.3.0",
     "sinon": "^7.4.1",
     "source-map-support": "^0.5.11",
-    "ts-node": "^8.0.3",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "@types/aws-lambda": "^8.10.23",
-    "reflect-metadata": "^0.1.13"
+    "@mu-ts/logger": "^3.0.6"
   },
   "nyc": {
     "include": [

@@ -1,44 +1,60 @@
 # Summary
 
-Easier AWS SNS interactions for both receipt and braodcasting of messages.
+Aids in routing messages from different SNS topics through the same endpoint, easier, cleaner and clearer.
 
-# Publishing
+# Router Usage
 
-There are static/global functions and configurations as well as instance level ones.
-
-Static
+For listeners, all functions that match the configurations defined, will execute. So be sure to properly define prefix, postfix and attribute restrictions.
 
 ```
-import { SNS } from '@mu-ts/sns';
+import { listeners, listener } from '@mu-ts/sns';
+import { SNSMessage } from 'aws-lambda';
 
-const somePayload: any = {
-  bunch: 'of stuff',
-  in: 'here'
+/**
+ * Only the messages where the ARN matches the restrictions defined on the @listener
+ * will pass through to the @listener defined functions below.
+ */
+@listeners(`*-*-topic-startswith-`) // Optional
+public class MyEventListener {
+  constructor(){
+  }
+
+  /**
+   * This method will be executed with a SNSMessage where the ARN matches the postfix, and the 
+   * attributes match the pairs provided. The value will be interpreted literally, and require
+   * a match to the attribute type. We recommend you stick with strings or string arrays. In the
+   * case of array values provided, only one needs to match to pass through. If the value on the 
+   * message attribute is an array, then all values must match.
+   */
+  @listener('topic-endswith', {topic:'payment'}, {operation:'update'})
+  public listen(message:SNSMessage):Promise<void> {
+
+  }
 }
+```
 
-SNS.setRegion('us-west-2');
-SNS.setSerializer((payload:object) => payload.toString());
-SNS.publish('topic:arn',somePayload,'Subject!',{tag:'to attach'});
+For any of the logic above to work, you will need to have an `SNSRouter` configured as the entry point for all of the topics needing to be routed into the `@listeners`.
 
 ```
 
-Instance
+import { SNSRouter } from '@mu-ts/sns';
+import { SNSEvent } from 'aws-lambda';
+
+export const rest = (event: SNSEvent) => SNSRouter.handle(event);
 
 ```
-import { SNS } from '@mu-ts/sns';
 
-const sns: SNS = new SNS('topic:arn','us-west-2',(payload:object) => payload.toString());
-const bunchOfPayloads: Array<any> = [
-  {
-    bunch: 'of stuff',
-    in: 'here'
-  },
-  {
-    bunch: 'of stuff again',
-    in: 'here'
-  },
-]
+# SNS Usage
 
-bunchOfPayloads.forEach((payload:any) => sns.publish(payload,'Subject!',{tag:'to attach'}) )
+To create messages for other topics to consume, you can use the SNS utility.
 
+```
+SNS.publish('arn:to:topic', payload, 'some subject', {status:'updated'}, 'us-east-1');
+```
+
+Its also possible to define na instance of SNS if your configurations are a bit morestatic.
+
+```
+const sns:SNS = new SNS('arn:to:topic','us-east-1');
+sns.publish(payload,'some subject', {status:'updated'});
 ```

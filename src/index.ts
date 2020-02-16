@@ -1,4 +1,4 @@
-export { snsListener } from './snsListener';
-export { SNSRouter } from './SNSRouter';
-export { SNS, MessageReceipt, SNSBodySerializer } from './SNS';
-export { SNSOperationDispatcher, Operation } from './SNSOperationDispatcher';
+export * from './services/SNS';
+export * from './services/SNSRouter';
+export * from './decorators/listeners';
+export * from './decorators/listener';
