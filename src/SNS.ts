@@ -84,7 +84,7 @@ export class SNS {
     topicARN: string,
     payload: string | object,
     subject?: string,
-    tags?: Map<string, string>
+    tags?: Map<string, string | string[]>
   ): Promise<MessageReceipt> {
     if (!SNS.globalSNS) SNS.globalSNS = new AWS.SNS({ apiVersion: '2010-03-31' });
     const parameters: PublishInput = SNS.buildParameters(SNS.globalSerializer, topicARN, payload, subject, tags);
@@ -103,7 +103,7 @@ export class SNS {
   public async publish(
     payload: string | object,
     subject?: string,
-    tags?: Map<string, string>
+    tags?: Map<string, string | string[]>
   ): Promise<MessageReceipt> {
     const parameters: PublishInput = SNS.buildParameters(this.serializer, this.topicARN, payload, subject, tags);
     const response: PublishResponse = await SNS.send(this.sns, parameters);
@@ -136,7 +136,7 @@ export class SNS {
         : Array.from(tags.keys()).reduce((current: MessageAttributeMap, key: string) => {
             current[key] = {
               DataType: Array.isArray(tags.get(key)) ? 'String.Array' : 'String',
-              StringValue: Array.isArray(tags.get(key)) ? JSON.stringify(tags.get(key)) : <string> tags.get(key),
+              StringValue: Array.isArray(tags.get(key)) ? JSON.stringify(tags.get(key)) : <string>tags.get(key),
             };
             return current;
           }, {}),
