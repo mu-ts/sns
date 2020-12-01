@@ -37,7 +37,15 @@ export class SNS {
    */
   constructor(topicARN: string, region?: string, serializer?: SNSBodySerializer) {
     this.topicARN = topicARN;
-    this.sns = new AWS.SNS({ apiVersion: '2010-03-31', region });
+    this.sns = new AWS.SNS({
+      apiVersion: '2010-03-31',
+      region,
+      httpOptions: {
+        connectTimeout: 500,
+        timeout: 2000,
+      },
+      maxRetries: 10,
+    });
     this.serializer = serializer || jsonSerializer;
   }
 
