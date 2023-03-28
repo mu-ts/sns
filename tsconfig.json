@@ -1,22 +1,28 @@
 {
   "compilerOptions": {
-    "lib": ["es2017"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es2017",
-    "types": ["node"],
-    "allowJs": false,
-    "strict": true,
-    "alwaysStrict": true,
+    "module": "CommonJS",
+    "target": "ES2022",
+    "moduleResolution": "Node",
+    "outDir": "lib",
     "declaration": true,
+    // "esModuleInterop": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "noImplicitAny": true,
-    "removeComments": true,
-    "sourceMap": true,
-    "preserveConstEnums": true,
-    "outDir": "dist",
-    "rootDirs": ["src"]
+    "forceConsistentCasingInFileNames": true,
+    // "isolatedModules": false,
+    // "strict": true,
+    // "noImplicitAny": true,
+    // "useUnknownInCatchVariables": false,
+    // "inlineSourceMap": true
+
+    "baseUrl": "src",
+    "paths": {
+      "@": [ "./" ],
+    }
   },
-  "exclude": ["node_modules", "test", ".cirrus.yml", ".prettierrc", "tsconfig.json", "tslint.json", ".git", "dist"]
+  "ts-node": {
+      "esm": true
+  },
+  // "lib": ["esnext"],
+  "exclude": ["node_modules", "*.spec/**/*.spec.ts"],
+  "include": ["src/**/*"]
 }
