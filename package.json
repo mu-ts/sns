@@ -1,6 +1,6 @@
 {
   "name": "@mu-ts/sns",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,6 +15,7 @@
     "dev-verify": "npm run lint-fix && npm run build"
   },
   "files": [
+    "lib/*",
     "dist/*",
     "README.md",
     "LICENSE",
