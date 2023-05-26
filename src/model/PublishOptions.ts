@@ -1,1 +1,1 @@
-export interface PublishOptions { subject?: string, tags?: Record<string, string | string[]>, deduplicationId?: string, groupId?: string };
+export interface PublishOptions { subject?: string; tags?: Record<string, string | string[]>; deduplicationId?: string; groupId?: string; }
