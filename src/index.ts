@@ -4,7 +4,7 @@
 export { publish } from './sugar/publish';
 
 /**
- * Instance 
+ * Instance
  */
 export { SNS } from './service/SNS';
 export { SNSClientWrapper } from './service/SNSClientWrapper';
