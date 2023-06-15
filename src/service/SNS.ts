@@ -40,7 +40,7 @@ export class SNS {
       if (Array.isArray(tags[key])) {
         attributes[key] = {
           DataType: 'String.Array',
-          StringValue: (tags[key] as string[]).join(',')
+          StringValue: JSON.stringify(tags[key] as string[])
         };
       } else {
         attributes[key] = {
