@@ -1,18 +1,13 @@
 {
   "name": "@mu-ts/sns",
-  "version": "2.0.0",
-  "description": "",
+  "version": "2.1.0",
+  "description": "Syntactical sugar for working with SNS topics in TypeScript via the AWS-SDK@3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p .",
-    "clean": "rm -rf coverage lib .nyc_output",
-    "test": "nyc mocha -r ts-node/register spec/**/*.spec.ts",
-    "coverage": "nyc report --reporter=lcov",
-    "coverage-export": "nyc report --reporter=text-lcov > coverage.lcov",
-    "lint": "tslint -p .",
-    "lint-fix": "tslint --fix -p .",
-    "dev-verify": "npm run lint-fix && npm run build"
+    "test": "mocha -r ts-node/register spec/**/*.spec.ts",
+    "clean": "rm -rf coverage lib .nyc_output"
   },
   "files": [
     "dist/*",
@@ -30,26 +25,23 @@
     "url": "https://github.com/mu-ts/sns/issues"
   },
   "homepage": "https://github.com/mu-ts/sns#readme",
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.114",
-    "@types/chai": "^4.3.4",
-    "@types/chai-as-promised": "^7.1.5",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^11.15.54",
-    "@types/sinon": "^7.5.2",
-    "chai": "^4.3.7",
-    "chai-as-promised": "^7.1.1",
-    "codecov": "^3.8.3",
-    "mocha": "^10.2.0",
-    "nyc": "^15.1.0",
-    "sinon": "^7.5.0",
-    "source-map-support": "^0.5.21",
-    "ts-node": "^8.10.2",
-    "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^5.0.2"
-  },
   "dependencies": {
-    "@aws-sdk/client-sns": "^3.301.0"
+    "@mu-ts/logger": "^3.2.0",
+    "@mu-ts/serialization": "^1.2.0"
+  },
+  "peerDependencies": {
+    "@aws-sdk/client-sns": "^3.431.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.7",
+    "@types/mocha": "^10.0.2",
+    "@types/node": "^20.8.4",
+    "@types/uuid": "^9.0.5",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   },
   "nyc": {
     "include": [
